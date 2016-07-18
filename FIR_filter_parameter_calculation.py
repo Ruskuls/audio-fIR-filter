@@ -114,6 +114,13 @@ else:
 
 	#Get lowest measured frequency
 	start_frequency = freq_lin_array[0]
+	
+	#Calculate number of sample count, from measurement file
+	sample_count_from_measurement = len(freq_lin_array)/decimation_factor
+
+	# Check if sample count is odd number, if not, discard last sample
+	if ((sample_count_from_measurement % 2) == 0):
+		sample_count_from_measurement = sample_count_from_measurement -1
 
 	#Find closest frequency resolution value from measurement file
 	Closest_frequency_from_measurement = FreqResolution*round(Lowest_frequency_input / FreqResolution)
