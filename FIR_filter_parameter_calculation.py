@@ -184,6 +184,11 @@ coeff = np.fft.irfft(normalized_spl_array,FIRlength)
 
 coeff_shifted = np.fft.ifftshift(coeff)
 
+
+# Multiplying acquired impulse response with Balckman-harris window function
+window = scipy.signal.blackmanharris(FIRlength)
+coeff_shifted = window*coeff_shifted
+
 #Normalize coefficients to maximize bit usage.
 coeff_mult_value = 32767/max(coeff_shifted)
 
