@@ -124,9 +124,9 @@ else:
 
 	#Find closest frequency resolution value from measurement file
 	Closest_frequency_from_measurement = FreqResolution*round(Lowest_frequency_input / FreqResolution)
-	print Closest_frequency_from_measurement
+	print "Closest frequency", Closest_frequency_from_measurement
 	tt = int(Closest_frequency_from_measurement/FreqResolution) - 1
-	print tt
+	print "tt", tt
 
 	if ((Closest_frequency_from_measurement - start_frequency) > 0):
 	    print "Input frequency is larger then lowest measured frequency"
@@ -136,13 +136,18 @@ else:
 	    print "Input frequency is lower then lowest measured frequency"
 	    #Always round up
 	    g = int(np.ceil(start_frequency/Closest_frequency_from_measurement))
-	    print g
-	    print g*Closest_frequency_from_measurement
+	    print "g", g
+	    print "g*closest frequency from measurement file", g*Closest_frequency_from_measurement
+
+	    for ones in range(0, (g-1)):
+		freq_lin_array_decimated.append(frequency_step)
+		spl_lin_array_decimated.append(100)
+
 	    low_end_frequency_value = int(round((g*Closest_frequency_from_measurement-start_frequency)/frequency_step))
-	    print low_end_frequency_value
+	    print low_end_frequency_value 
 
 	# Perform decimation.
-	for decimation in range(0,sample_count_from_measurement):
+	for decimation in range((g-1),sample_count_from_measurement):
 	    freq_lin_array_decimated.append(freq_lin_array[decimation_factor*(decimation)+low_end_frequency_value])
 	    spl_lin_array_decimated.append(spl_lin_array[decimation_factor*(decimation)+low_end_frequency_value])
 	    phase_lin_array_decimated.append(phase_lin_array[decimation_factor*(decimation)+low_end_frequency_value])
